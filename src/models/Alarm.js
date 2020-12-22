@@ -1,4 +1,4 @@
-export class Alarm {
+export default class Alarm {
   constructor(id, destination, arrivalTime) {
     this.id = id;
     this.destination = destination;
