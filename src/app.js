@@ -6,8 +6,8 @@ import { SERVER_PORT } from "./config/index.js";
 
 const app = express();
 
-addMiddleware(app);
 addViews(app);
+addMiddleware(app);
 addRoutes(app);
 
 app.listen(SERVER_PORT, () => console.log(`Listening on ${SERVER_PORT}`));

@@ -5,7 +5,8 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "migrate": "node database/index.js"
   },
   "repository": {
     "type": "git",
@@ -15,11 +16,14 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "bootstrap": "^4.5.3",
     "compression": "^1.7.4",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "helmet": "^4.2.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "sqlite": "^4.0.18",
+    "sqlite3": "^5.0.0"
   }
 }
