@@ -18,7 +18,7 @@ async function index() {
   const result = await db.all("SELECT * FROM alarms");
   await db.close();
 
-  const alarms = result.map(rowToAlarm);
+  const alarms = result ? result.map(rowToAlarm) : [];
   return alarms;
 }
 
@@ -58,9 +58,8 @@ async function update(id, alarm) {
 
 async function destroy(id) {
   const db = await openDb();
-  const result = await db.run("DELETE FROM alarms WHERE id = ?", id);
+  await db.run("DELETE FROM alarms WHERE id = ?", id);
   await db.close();
-  console.log(result);
 }
 
 export default {
