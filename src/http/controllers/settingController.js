@@ -1,18 +1,12 @@
-import Setting from "../../models/Setting.js";
 import { sendData, sendError } from "./util/send.js";
 import repo from "../../data/settingRepo.js";
 
-//
-// helpers
-//
+function reqToValue(req) {
+  const value = req.body.value;
 
-function reqToSetting(req) {
-  const body = req.body;
-  if (!body.value) {
+  if (!value) {
     throw new Error("Invalid body!");
   }
-
-  return new Setting(null, body.value);
 }
 
 function reqToKey(req) {
@@ -31,8 +25,8 @@ function reqToKey(req) {
 async function show(req, res) {
   try {
     const key = reqToKey(req);
-    const setting = await repo.show(key);
-    sendData(res, setting);
+    const value = await repo.show(key);
+    sendData(res, value);
   } catch (error) {
     sendError(res, 400, error);
   }
@@ -40,10 +34,10 @@ async function show(req, res) {
 
 async function update(req, res) {
   try {
-    const setting = reqToSetting(req);
+    const updatedValue = reqToValue(req);
     const key = reqToKey(req);
-    const updated = await repo.update(key, setting);
-    sendData(res, updated);
+    await repo.update(key, updatedValue);
+    sendData(res, updatedValue);
   } catch (error) {
     sendError(res, 400, error);
   }

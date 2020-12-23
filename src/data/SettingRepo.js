@@ -1,16 +1,7 @@
-import Setting from "../models/Setting.js";
 import { openDb } from "./database/sqliteConnection.js";
 
 //
 // helpers
-//
-
-function rowToSetting(row) {
-  return new Setting(row.key, row.value);
-}
-
-//
-// show and update
 //
 
 async function show(key) {
@@ -18,20 +9,14 @@ async function show(key) {
   const result = await db.get("SELECT * FROM settings WHERE key = ?", key);
   await db.close();
 
-  const setting = result ? rowToSetting(result) : null;
-  return setting;
+  return result;
 }
 
-async function update(key, setting) {
+async function update(key, value) {
   const db = await openDb();
-  await db.run(
-    "UPDATE settings SET value = ? WHERE key = ?",
-    setting.value,
-    key
-  );
+  await db.run("UPDATE settings SET value = ? WHERE key = ?", value, key);
   await db.close();
-
-  return new Setting(key, setting.value);
+  return value;
 }
 
 export default {
