@@ -1,6 +1,6 @@
 import Alarm from "../models/Alarm.js";
 import { sendData, sendError } from "./util/send.js";
-import repo from "../data/AlarmRepo.js";
+import repo from "../data/alarmRepo.js";
 
 //
 // helpers
@@ -8,7 +8,7 @@ import repo from "../data/AlarmRepo.js";
 
 function reqToAlarm(req) {
   const body = req.body;
-  if (!req.body.destination || !req.body.arrival) {
+  if (!body.destination || !body.arrival) {
     throw new Error("Invalid body!");
   }
 

@@ -1,4 +1,4 @@
-import repo from "../data/AlarmRepo.js";
+import repo from "../data/alarmRepo.js";
 import bingRoutesApi from "../services/bingRoutesApi.js";
 
 function canRing(arrival, preperationSeconds, travelSeconds) {
