@@ -1,31 +1,47 @@
-import repo from "../data/alarmRepo.js";
+import alarmRepo from "../data/alarmRepo.js";
+import settingRepo from "../data/settingRepo.js";
+import SettingKeys from "../models/SettingKeys.js";
+import alarmService from "../services/alarmService.js";
 import bingRoutesApi from "../services/bingRoutesApi.js";
 
-function canRing(arrival, preperationSeconds, travelSeconds) {
-  const nowEpoch = new Date().getTime();
-  const arrivalEpoch = new Date(arrival).getTime();
-  return nowEpoch + preperationSeconds + travelSeconds >= arrivalEpoch;
+async function getAlarms() {
+  return await alarmRepo.index();
 }
 
-function ring(id) {
-  console.log(`${id} is ringing!`);
-  repo.destroy(id);
+async function getDeparture() {
+  return (await settingRepo.show(SettingKeys.DEPARTURE)).value;
+}
+
+async function getPreperationSeconds() {
+  return (await settingRepo.show(SettingKeys.PREPARATION_SECONDS)).value;
+}
+
+async function getTravelSeconds(departure, destination) {
+  return await bingRoutesApi.getTravelSeconds(departure, destination);
 }
 
 export default async function checkAlarms() {
-  const alarms = await repo.index();
-
-  const departure = "Jozef Lievensstraat 8, 8800 Roeselare"; // TODO get from settings
-  const preperationSeconds = 15 * 60;
+  const alarms = await getAlarms();
+  const departure = await getDeparture();
+  const preperationSeconds = await getPreperationSeconds();
 
   alarms.forEach(async ({ id, destination, arrival }) => {
-    const travelSeconds = await bingRoutesApi.getTravelSeconds(
-      departure,
-      destination
-    );
+    const travelSeconds = await getTravelSeconds(departure, destination);
 
-    if (canRing(arrival, preperationSeconds, travelSeconds)) {
-      ring(id);
+    if (alarmService.canRing(arrival, preperationSeconds, travelSeconds)) {
+      alarmService.ring(id);
+
+      console.log(
+        `
+        Alarm ${id}: 
+        Departure: ${departure}
+        Destination: ${destination}
+        Arrival: ${new Date(arrival).toLocaleString()}
+        Now: ${new Date().toLocaleString()}
+        Preperation time: ${Math.floor(preperationSeconds / 60)}min
+        Travel time: ${Math.floor(travelSeconds / 60)}min
+        `
+      );
     }
   });
 }
