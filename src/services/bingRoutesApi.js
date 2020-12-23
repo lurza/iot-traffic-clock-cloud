@@ -1,6 +1,6 @@
 import axios from "axios";
 import buildUrl from "build-url";
-import { BING_API_KEY } from "../config/index.js";
+import { BING_API_KEY } from "../config.js";
 
 async function getTravelSeconds(departure, destination) {
   const url = buildUrl("http://dev.virtualearth.net/REST/v1/Routes", {

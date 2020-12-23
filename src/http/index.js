@@ -1,7 +1,7 @@
 import express from "express";
 import addMiddleware from "./middleware/index.js";
 import addRoutes from "./routes/index.js";
-import { SERVER_PORT } from "./config/index.js";
+import { SERVER_PORT } from "../config.js";
 
 export default function startServer() {
   const app = express();

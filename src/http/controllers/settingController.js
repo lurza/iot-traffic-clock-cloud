@@ -1,6 +1,6 @@
-import Setting from "../models/Setting.js";
+import Setting from "../../models/Setting.js";
 import { sendData, sendError } from "./util/send.js";
-import repo from "../data/settingRepo.js";
+import repo from "../../data/settingRepo.js";
 
 //
 // helpers

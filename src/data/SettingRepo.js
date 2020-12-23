@@ -1,5 +1,5 @@
 import Setting from "../models/Setting.js";
-import { openDb } from "./db/sqliteConnection.js";
+import { openDb } from "./database/sqliteConnection.js";
 
 //
 // helpers

@@ -1,5 +1,5 @@
 import Alarm from "../models/Alarm.js";
-import { openDb } from "./db/sqliteConnection.js";
+import { openDb } from "./database/sqliteConnection.js";
 
 //
 // helpers
