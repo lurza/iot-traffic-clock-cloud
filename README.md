@@ -1,4 +1,4 @@
-# Traffic clock
+# Cloud
 
 ## .env
 
@@ -7,6 +7,6 @@
 
 ## usage
 
-- npm start
-- npm dev
-- npm migrate
+- npm run start
+- npm run dev
+- npm run migrate
