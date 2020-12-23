@@ -9,7 +9,7 @@ async function show(key) {
   const result = await db.get("SELECT * FROM settings WHERE key = ?", key);
   await db.close();
 
-  return result;
+  return result.value;
 }
 
 async function update(key, value) {

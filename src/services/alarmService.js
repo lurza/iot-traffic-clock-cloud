@@ -12,10 +12,12 @@ async function canRing(alarm) {
     destination
   );
   const preperationSeconds = await settingRepo.show(PREPARATION_SECONDS);
+  const nowEpochSeconds = new Date().getTime() / 1000;
+  const arrivalEpochSeconds = new Date(arrival).getTime() / 1000;
 
-  const nowEpoch = new Date().getTime();
-  const arrivalEpoch = new Date(arrival).getTime();
-  return nowEpoch + preperationSeconds + travelSeconds >= arrivalEpoch;
+  return (
+    nowEpochSeconds + preperationSeconds + travelSeconds >= arrivalEpochSeconds
+  );
 }
 
 function ring(id) {

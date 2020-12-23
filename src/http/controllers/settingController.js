@@ -7,6 +7,8 @@ function reqToValue(req) {
   if (!value) {
     throw new Error("Invalid body!");
   }
+
+  return value;
 }
 
 function reqToKey(req) {
