@@ -6,7 +6,7 @@ import { openDb } from "./db/sqliteConnection.js";
 //
 
 function rowToAlarm(row) {
-  return new Alarm(row.id, row.destination, row.arrival_time);
+  return new Alarm(row.id, row.destination, row.arrival);
 }
 
 //
@@ -34,26 +34,26 @@ async function show(id) {
 async function store(alarm) {
   const db = await openDb();
   const result = await db.run(
-    "INSERT INTO alarms(destination, arrival_time) VALUES(?, ?)",
+    "INSERT INTO alarms(destination, arrival) VALUES(?, ?)",
     alarm.destination,
-    alarm.arrivalTime
+    alarm.arrival
   );
   await db.close();
 
-  return new Alarm(result.lastID, alarm.destination, alarm.arrivalTime);
+  return new Alarm(result.lastID, alarm.destination, alarm.arrival);
 }
 
 async function update(id, alarm) {
   const db = await openDb();
   await db.run(
-    "UPDATE alarms SET destination=?, arrival_time=? WHERE id = ?",
+    "UPDATE alarms SET destination=?, arrival=? WHERE id = ?",
     alarm.destination,
-    alarm.arrivalTime,
+    alarm.arrival,
     id
   );
   await db.close();
 
-  return new Alarm(id, alarm.destination, alarm.arrivalTime);
+  return new Alarm(id, alarm.destination, alarm.arrival);
 }
 
 async function destroy(id) {

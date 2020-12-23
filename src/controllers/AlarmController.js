@@ -8,11 +8,11 @@ import repo from "../data/AlarmRepo.js";
 
 function reqToAlarm(req) {
   const body = req.body;
-  if (!req.body.destination || !req.body.arrivalTime) {
+  if (!req.body.destination || !req.body.arrival) {
     throw new Error("Invalid body!");
   }
 
-  return new Alarm(null, body.destination, body.arrivalTime);
+  return new Alarm(null, body.destination, body.arrival);
 }
 
 function reqToId(req) {

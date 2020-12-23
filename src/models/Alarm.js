@@ -1,7 +1,7 @@
 export default class Alarm {
-  constructor(id, destination, arrivalTime) {
+  constructor(id, destination, arrival) {
     this.id = id;
     this.destination = destination;
-    this.arrivalTime = arrivalTime;
+    this.arrival = arrival;
   }
 }

@@ -1,11 +1,5 @@
-import express from "express";
-import addMiddleware from "./middleware/index.js";
-import addRoutes from "./routes/index.js";
-import { SERVER_PORT } from "./config/index.js";
+import startServer from "./server.js";
+import startCron from "./cron.js";
 
-const app = express();
-
-addMiddleware(app);
-addRoutes(app);
-
-app.listen(SERVER_PORT, () => console.log(`Listening on ${SERVER_PORT}`));
+startServer();
+startCron();
