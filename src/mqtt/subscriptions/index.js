@@ -16,6 +16,7 @@ function handleMessage(topic, message) {
 
 export default function () {
     client.on("message", handleMessage);
+    client.on("error", console.log);
 
     addSubscription("ping", pingController.handleMessage);
     addSubscription("alarm/volume/increase", settingsController.increaseVolume);
