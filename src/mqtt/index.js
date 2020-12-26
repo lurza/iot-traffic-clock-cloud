@@ -1,19 +1,8 @@
 import MQTT from "async-mqtt";
+import addSubscriptions from "./subscriptions/index.js";
 import { MQTT_BROKER, MQTT_USER, MQTT_PASSWORD } from "../config.js";
 
 let client;
-
-const callbacksByTopic = new Map();
-
-function addSubscription(topic, callback) {
-    client.subscribe(topic);
-    callbacksByTopic.set(topic, callback);
-}
-
-function handleMessage(topic, message) {
-    const callback = callbacksByTopic.get(topic);
-    callback(message.toString());
-}
 
 export default async function startMQTTClient() {
     client = await MQTT.connectAsync(`mqtt://${MQTT_BROKER}`, {
@@ -21,11 +10,7 @@ export default async function startMQTTClient() {
         password: MQTT_PASSWORD,
     });
 
-    client.on("message", handleMessage);
-
-    addSubscription("ping", async () => {
-        await client.publish("pong", "pong");
-    });
+    addSubscriptions(client);
 
     console.log("MQTT client started!");
 }
