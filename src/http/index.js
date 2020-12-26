@@ -4,10 +4,12 @@ import addRoutes from "./routes/index.js";
 import { SERVER_PORT } from "../config.js";
 
 export default function startServer() {
-  const app = express();
+    const app = express();
 
-  addMiddleware(app);
-  addRoutes(app);
+    addMiddleware(app);
+    addRoutes(app);
 
-  app.listen(SERVER_PORT, () => console.log(`Listening on ${SERVER_PORT}`));
+    app.listen(SERVER_PORT, () =>
+        console.log(`HTTP server started! (port:${SERVER_PORT})`)
+    );
 }
